@@ -16,11 +16,11 @@ def get_conn():
     )
 
 
-def query_data(sql):
+def query_data(sql,val):
     conn = get_conn()
     try:
         cursor = conn.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql,val)
         return cursor.fetchall()
     finally:
         conn.close()

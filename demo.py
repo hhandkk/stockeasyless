@@ -1,8 +1,31 @@
 import datetime
 import json
+import random
 
 import config
+import utils
 
+print(random.randint(5, 10))
+
+print(datetime.date.today().__str__())
+
+stock_code = "300261"
+stock_name = "雅本化学"
+print(utils.get_stock_list(datetime.date.today().__str__()))
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----------------------
 history_date = config.getConfig()["parm"]["history_date"]
 print(type(history_date))
 current_datetime = datetime.datetime.now()
@@ -11,7 +34,11 @@ current_hour = current_datetime.hour
 print(current_hour)
 
 #-----------------------------------------------------------------
-data_list = [{"name": "Tom", "age": 18}, {"name": "Jerry", "age": 12}]
+data_list = [
+    {"name": "Tom", "age": 18},
+    {"name": "Jerry", "age": 12}]
+
+
 
 print(f"data_list 类型 : {type(data_list)} 值为 {data_list}")
 

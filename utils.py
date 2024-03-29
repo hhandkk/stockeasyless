@@ -86,12 +86,12 @@ def save_quote_txn_bath(data):
 
 #--------------------------------------------------------------------------------------------------
 #批量提取当前股票明细
-def save_sig_stock_history_bath(stock_code,data):
+def save_sig_stock_history_bath(stock_code,stock_name,data):
     # 6、清理该个股历史数据
     f1_point = "日末"
     history_date = config.getConfig()["parm"]["history_date"]
 
-    delete_sql = "delete from quote_price_txn where f12 = %s and f1 <= %s"
+    delete_sql = "delete from quote_price_txn where f12 = %s and f0 <= %s"
     mysql.delete_data(delete_sql, (stock_code,history_date))
     print(stock_code +"股票数据"+ str(history_date) +"前的数据全部删除成功。")
     #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
@@ -100,7 +100,17 @@ def save_sig_stock_history_bath(stock_code,data):
     #print(val.__str__() + "入库成功。")
     #输出入库情况
     ##更新f0、f1,f200
-    update_sql = "update quote_price_txn set f1 = %s,f12 = %s,f200 = %s where f0 <= %s and f12 is null"
-    val=(f1_point,stock_code,datetime.datetime.now().__str__(),history_date)
+    update_sql = "update quote_price_txn set f1 = %s,f12 = %s,f14 = %s,f200 = %s where f0 <= %s and f12 is null"
+    val=(f1_point,stock_code,stock_name,datetime.datetime.now().__str__(),history_date)
     mysql.insert_or_update_data(update_sql,val)
-    print(stock_code + "历史股票明细已经入库，共计" + str(len(data)) + "条数据。")
+    print(stock_code +stock_name+ "历史股票明细已经入库，共计" + str(len(data)) + "条数据。")
+
+#-----------------------------------------------------------------------------------------------------------------
+#
+#20240329
+#获取股票清单
+def get_stock_list(val_date):
+    select_sql = "select distinct f12,f14 from quote_price_txn where f0 = %s"
+    result_list=list(mysql.query_data(select_sql,val_date))
+    return result_list
+

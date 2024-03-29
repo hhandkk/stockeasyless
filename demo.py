@@ -5,6 +5,24 @@ import random
 import config
 import utils
 
+
+
+
+
+# 示例用法
+if __name__ == "__main__":
+    log_url = config.getConfig()["parm"]["log_url"].replace("yyyy-mm-dd",datetime.date.today().__str__())
+    logger = utils.setup_logger(log_url)
+    logger.info('程序开始运行')
+    # 运行中的代码
+    logger.info('程序结束运行')
+
+
+
+
+
+
+
 print(random.randint(5, 10))
 
 print(datetime.date.today().__str__())

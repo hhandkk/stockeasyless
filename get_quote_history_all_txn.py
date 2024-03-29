@@ -7,6 +7,10 @@ import utils
 import config
 import datetime
 
+#记录日志
+log_url = config.getConfig()["parm"]["log_url"].replace("yyyy-mm-dd",datetime.date.today().__str__())
+logger = utils.setup_logger(log_url)
+
 #设置请求的头
 #获取所有股票代码
 
@@ -16,27 +20,29 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 insert_sum = 0;
 for i in stock_list_all:
     #分类爬取,免得被封ip了   26-
-    if i[0] >= "000003":
-        continue
+    #if i[0] > "000005":
+    #    continue
     #拼接url
     url_comm = config.getConfig()["url"]["quote_txn_req_history_url"]
     url_stock = url_comm.replace("stockcode",i[0])
-    print(url_stock)
+    #print(url_stock)
     #取数
     res = requests.get(url_stock,headers)
-    print(res.text.__str__())
+    #print(res.text.__str__())
     result = res.text.split("jsonp1711606605952")[1].split("(")[1].split(");")[0]
     result_json = json.loads(result)
-    print(result_json)
+    #print(result_json)
     #入库
     result_matrix = list(map(lambda i:i.split(",") ,result_json['data']['klines']))
-    print(result_matrix)
-    print(type(result_matrix[1]))
+    #print(result_matrix)
+    #print(type(result_matrix[1]))
     utils.save_sig_stock_history_bath(i[0],i[1],result_matrix)
+    logger.info(i[0] + i[1] + "入库完成。" )
     insert_sum = insert_sum + 1
     time.sleep(random.randint(5, 10))
 
-print("共计入库" + str(insert_sum) + "个股票历史数据")
+logger.info("共计入库" + str(insert_sum) + "个股票历史数据")
+
 #拼接单个股票请求的url
 #请求东方财富单个股票K线图ajax请求数据
 #返回非标准json，预处理

@@ -10,6 +10,7 @@ url:
 parm:
   quote_txn_req_max: 6000
   history_date : "2024-03-26"
+  log_url : "log/stock_yyyy-mm-dd.log"
 
 db:
   host: 112.74.98.79

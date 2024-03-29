@@ -114,3 +114,39 @@ def get_stock_list(val_date):
     result_list=list(mysql.query_data(select_sql,val_date))
     return result_list
 
+
+#-------------------------------------------------------------------------------------------------------------
+#记录日志
+
+import logging
+
+
+def setup_logger(log_file):
+    # 设置日志格式
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+    # 创建一个logger
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    # 创建一个文件handler，用于写入日志文件
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    # 创建一个控制台handler，用于输出到控制台
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+    return logger
+
+
+# 示例用法
+if __name__ == "__main__":
+    logger = setup_logger('app.log')
+    logger.info('程序开始运行')
+    # 运行中的代码
+    logger.info('程序结束运行')
+
+

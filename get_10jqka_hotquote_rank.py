@@ -21,6 +21,8 @@ print(headers)
 res = requests.get(url,headers=headers)
 #result_json = json.loads(res.text)
 print(res)
+result_text= res.text
+print(result_text)
 #2、存储到mysql
 #utils.save_quote_txn(result_json['data']['diff'])
 

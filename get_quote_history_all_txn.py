@@ -20,8 +20,8 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 insert_sum = 0;
 for i in stock_list_all:
     #分类爬取,免得被封ip了   26-
-    #if i[0] > "000005":
-    #    continue
+    if i[0] < "600000":
+        continue
     #拼接url
     url_comm = config.getConfig()["url"]["quote_txn_req_history_url"]
     url_stock = url_comm.replace("stockcode",i[0])
@@ -29,7 +29,7 @@ for i in stock_list_all:
     #取数
     res = requests.get(url_stock,headers)
     #print(res.text.__str__())
-    result = res.text.split("jsonp1711606605952")[1].split("(")[1].split(");")[0]
+    result = res.text.split("jsonp1711941323422")[1].split("(")[1].split(");")[0]
     result_json = json.loads(result)
     #print(result_json)
     #入库
@@ -39,7 +39,7 @@ for i in stock_list_all:
     utils.save_sig_stock_history_bath(i[0],i[1],result_matrix)
     logger.info(i[0] + i[1] + "入库完成。" )
     insert_sum = insert_sum + 1
-    time.sleep(random.randint(5, 10))
+    time.sleep(random.randint(1, 2))
 
 logger.info("共计入库" + str(insert_sum) + "个股票历史数据")
 

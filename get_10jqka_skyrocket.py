@@ -5,8 +5,8 @@ import datetime
 import utils
 import config
 
-#封装成块
-def get_10jqka_hotblock():
+
+def get_10jqka_skyrocket():
     #1、取数
     #设置请求的头
     #请求东方财富获取数据
@@ -17,7 +17,7 @@ def get_10jqka_hotblock():
             'postman-token': "220d2989-c111-fea3-874f-f5c31113db59"
     }
 
-    url=config.getConfig()["url"]["quote_10jqka_hotrank"]
+    url=config.getConfig()["url"]["quote_10jqka_skyrocket"]
     print(url)
     print(headers)
     res = requests.get(url,headers=headers)
@@ -29,7 +29,7 @@ def get_10jqka_hotblock():
     print(result_list)
     #2、存储到mysql
     #utils.save_quote_txn(result_json['data']['diff'])
-    utils.clean_10jqka_hotquote()
+    utils.clean_10jqka_skyrocket()
     for i in result_list:
-        utils.save_10jqka_hotquote(i)
-    print( "排行数据已经入库，共计" + str(len(result_list)) +"条数据。")
+        utils.save_10jqka_skyrocket(i)
+    print( "飙升排行数据已经入库，共计" + str(len(result_list)) +"条数据。")

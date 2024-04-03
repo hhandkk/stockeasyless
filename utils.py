@@ -9,7 +9,7 @@ import config
 def save_quote_txn(data):
     # 6、清理当天的数据
     f1_point = "日中"
-    if datetime.datetime.now().hour > 15:
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
         f1_point = "日末"
     current_date = datetime.date.today().__str__()
     delete_sql = "delete from quote_price_txn where f0 = %s and f1= %s"
@@ -67,7 +67,7 @@ def jsonlist2matrix(data):
 def save_quote_txn_bath(data):
     # 6、清理当天的数据
     f1_point = "日中"
-    if datetime.datetime.now().hour > 15:
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
         f1_point = "日末"
     current_date = datetime.date.today().__str__()
     delete_sql = "delete from quote_price_txn where f0 = %s and f1= %s"
@@ -149,4 +149,196 @@ if __name__ == "__main__":
     # 运行中的代码
     logger.info('程序结束运行')
 
+
+#--------------------------------------------------------------------------------------------------
+def clean_10jqka_hotquote():
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    delete_sql = "delete from stock_10jqka_hotrank where date = %s and data_point= %s"
+    mysql.delete_data(delete_sql, (current_date, f1_point))
+    print(current_date + f1_point + "同花顺排行数据删除成功。")
+
+#批量获取同花顺排行榜
+def save_10jqka_hotquote(data):
+    # 6、清理当天的数据
+    f1_point = "日中"
+    if  datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    #insert_sql = "insert stock_10jqka_hotrank(date，order，market，code，rate，rise_and_fall，name，analyse，hot_rank_chg，concept_tag，popularity_tag，analyse_title，data_point，data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    #mysql.insert_data_bath(insert_sql,data)
+
+
+    date = current_date
+    order = str(data["order"])
+    market = str(data["market"])
+    code = str(data["code"])
+    rate = str(data["rate"])
+    rise_and_fall = str(data["rise_and_fall"])
+    name = str(data["name"])
+    analyse = data.get("analyse", "")
+    hot_rank_chg = str(data["hot_rank_chg"])
+    concept_tag = str(data["tag"]["concept_tag"])
+    try:
+        popularity_tag = str(data["tag"]["popularity_tag"])
+    except KeyError:
+        popularity_tag=""
+    analyse_title = data.get("analyse_title", "")
+    data_point = str(f1_point)
+    data_time = datetime.datetime.now().__str__()
+    insert_sql = "insert stock_10jqka_hotrank(date,rank_order,market,stock_code,rate,rise_and_fall,stock_name,analyse,hot_rank_chg,concept_tag,popularity_tag,analyse_title,data_point,data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+    val = (date,order,market,code,rate,rise_and_fall,name,analyse,hot_rank_chg,concept_tag,popularity_tag,analyse_title,data_point,data_time)
+    print(val)
+    mysql.insert_or_update_data(insert_sql, val)
+    print(name + f1_point + "排行数据入库成功。")
+    #输出入库情况
+
+
+#--------------------------------------------------------------------------------------------------
+def clean_10jqka_skyrocket():
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    delete_sql = "delete from stock_10jqka_skyrocket where date = %s and data_point= %s"
+    mysql.delete_data(delete_sql, (current_date, f1_point))
+    print(current_date + f1_point + "同花顺飙升排行数据删除成功。")
+
+#批量获取同花顺排行榜
+def save_10jqka_skyrocket(data):
+    # 6、清理当天的数据
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    #insert_sql = "insert stock_10jqka_hotrank(date，order，market，code，rate，rise_and_fall，name，analyse，hot_rank_chg，concept_tag，popularity_tag，analyse_title，data_point，data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    #mysql.insert_data_bath(insert_sql,data)
+
+
+    date = current_date
+    order = str(data["order"])
+    market = str(data["market"])
+    code = str(data["code"])
+    rate = str(data["rate"])
+    rise_and_fall = str(data["rise_and_fall"])
+    name = str(data["name"])
+    analyse = data.get("analyse", "")
+    hot_rank_chg = str(data["hot_rank_chg"])
+    concept_tag = str(data["tag"]["concept_tag"])
+    try:
+        popularity_tag = str(data["tag"]["popularity_tag"])
+    except KeyError:
+        popularity_tag=""
+    analyse_title = data.get("analyse_title", "")
+    data_point = str(f1_point)
+    data_time = datetime.datetime.now().__str__()
+    insert_sql = "insert stock_10jqka_skyrocket(date,rank_order,market,stock_code,rate,rise_and_fall,stock_name,analyse,hot_rank_chg,concept_tag,popularity_tag,analyse_title,data_point,data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+    val = (date,order,market,code,rate,rise_and_fall,name,analyse,hot_rank_chg,concept_tag,popularity_tag,analyse_title,data_point,data_time)
+    print(val)
+    mysql.insert_or_update_data(insert_sql, val)
+    print(name + f1_point + "飙升排行数据入库成功。")
+    #输出入库情况
+
+
+
+#--------------------------------------------------------------------------------------------------
+def clean_10jqka_concept():
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    delete_sql = "delete from stock_10jqka_concept where date = %s and data_point= %s"
+    mysql.delete_data(delete_sql, (current_date, f1_point))
+    print(current_date + f1_point + "热点概念排行数据删除成功。")
+
+#批量获取同花顺排行榜
+def save_10jqka_concept(data):
+    # 6、清理当天的数据
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    #insert_sql = "insert stock_10jqka_hotrank(date，order，market，code，rate，rise_and_fall，name，analyse，hot_rank_chg，concept_tag，popularity_tag，analyse_title，data_point，data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    #mysql.insert_data_bath(insert_sql,data)
+
+
+    date = current_date
+
+    etf_product_id = str(data.get("etf_product_id", ""))
+    code = str(data.get("code", ""))
+    rate = str(data.get("rate", ""))
+    rise_and_fall = str(data.get("rise_and_fall", ""))
+    etf_rise_and_fall = str(data.get("etf_rise_and_fall", ""))
+    name = str(data.get("name", ""))
+    hot_rank_chg = str(data.get("hot_rank_chg", ""))
+    market_id = str(data.get("market_id", ""))
+    hot_tag = str(data.get("hot_tag", ""))
+    tag = str(data.get("tag", ""))
+    etf_market_id = str(data.get("etf_market_id", ""))
+    order = str(data.get("order", ""))
+    data_point = str(f1_point)
+    data_time = datetime.datetime.now().__str__()
+    insert_sql = ("insert stock_10jqka_concept(date,etf_product_id,concept_code,rate,etf_rise_and_fall,rise_and_fall,concept_name,hot_rank_chg,market_id,hot_tag,concept_tag,etf_market_id,eft_order,data_point,data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)")
+
+    val = (date,etf_product_id,code,rate,rise_and_fall,etf_rise_and_fall,name,hot_rank_chg,market_id,hot_tag,tag,etf_market_id,order ,data_point,data_time)
+    print(val)
+    mysql.insert_or_update_data(insert_sql, val)
+    print(name + f1_point + " 概念热版数据入库成功。")
+    #输出入库情况
+
+
+
+
+#--------------------------------------------------------------------------------------------------
+def clean_10jqka_industry():
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    delete_sql = "delete from stock_10jqka_industry where date = %s and data_point= %s"
+    mysql.delete_data(delete_sql, (current_date, f1_point))
+    print(current_date + f1_point + "热点概念排行数据删除成功。")
+
+#批量获取同花顺排行榜
+def save_10jqka_industry(data):
+    # 6、清理当天的数据
+    f1_point = "日中"
+    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+        f1_point = "日末"
+    current_date = datetime.date.today().__str__()
+    #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    #insert_sql = "insert stock_10jqka_hotrank(date，order，market，code，rate，rise_and_fall，name，analyse，hot_rank_chg，concept_tag，popularity_tag，analyse_title，data_point，data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    #mysql.insert_data_bath(insert_sql,data)
+
+
+    date = current_date
+
+    etf_product_id = str(data.get("etf_product_id", ""))
+    code = str(data.get("code", ""))
+    rate = str(data.get("rate", ""))
+    rise_and_fall = str(data.get("rise_and_fall", ""))
+    etf_rise_and_fall = str(data.get("etf_rise_and_fall", ""))
+    name = str(data.get("name", ""))
+    hot_rank_chg = str(data.get("hot_rank_chg", ""))
+    market_id = str(data.get("market_id", ""))
+    hot_tag = str(data.get("hot_tag", ""))
+    tag = str(data.get("tag", ""))
+    etf_market_id = str(data.get("etf_market_id", ""))
+    order = str(data.get("order", ""))
+    data_point = str(f1_point)
+    data_time = datetime.datetime.now().__str__()
+    insert_sql = ("insert stock_10jqka_industry(date,etf_product_id,concept_code,rate,etf_rise_and_fall,rise_and_fall,concept_name,hot_rank_chg,market_id,hot_tag,concept_tag,etf_market_id,eft_order,data_point,data_time) values (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)")
+
+    val = (date,etf_product_id,code,rate,rise_and_fall,etf_rise_and_fall,name,hot_rank_chg,market_id,hot_tag,tag,etf_market_id,order ,data_point,data_time)
+    print(val)
+    mysql.insert_or_update_data(insert_sql, val)
+    print(name + f1_point + " 行业热榜数据入库成功。")
+    #输出入库情况
 

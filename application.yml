@@ -5,7 +5,12 @@ url:
     https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/stock?stock_type=a&type=hour&list_type=normal
   quote_txn_req_history_url:
     https://push2his.eastmoney.com/api/qt/stock/kline/get?fields1=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&beg=0&end=20500101&ut=fa5fd1943c7b386f172d6893dbfba10b&rtntype=6&secid=1.stockcode&klt=101&fqt=1&cb=jsonp1711941323422
-
+  quote_10jqka_skyrocket:
+    https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/stock?stock_type=a&type=hour&list_type=skyrocket
+  quote_10jqka_industry:
+    https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/plate?type=industry
+  quote_10jqka_concept:
+    https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/plate?type=concept
 
 parm:
   quote_txn_req_max: 6000

@@ -11,6 +11,8 @@ url:
     https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/plate?type=industry
   quote_10jqka_concept:
     https://dq.10jqka.com.cn/fuyao/hot_list_data/out/hot_list/v1/plate?type=concept
+  quote_easymoney_index:
+    https://24.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240018788837573413764_1712208347167&pn=1&pz=50&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=|0|0|0|web&fid=&fs=b:MK0010&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152&_=1712208347320
 
 parm:
   quote_txn_req_max: 6000
@@ -23,5 +25,3 @@ db:
   password:  abcd1234#
   database: myquote
   port: 3306
-
-test: test1

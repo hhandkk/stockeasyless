@@ -116,11 +116,11 @@ def judge_function(open, close):
     else:
         return 'positive'
 if __name__ == '__main__':
-        code = "sz.002281"
-        startdate = "2000-01-01"
+        code = "sz.000001"
+        startdate = "2018-01-01"
         enddate = "2024-04-05"
         N = 3
-        M = 4
+        M = 2
         L = 5
         df = judge_kline_category(code, startdate, enddate)
         kline_application(df, N,M,L)

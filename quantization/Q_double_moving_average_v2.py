@@ -20,33 +20,31 @@ def dual_moving_average_strategy(data, short_window=5, long_window=22):
     # 计算持仓变化
     data['Position'] = data['Signal'].diff()
     #1投资收益走势
+    data['monitor'] = 0
     #短均线斜率
-    data["slope_short"]= np.gradient(data['Short_MA'])
+    data["slope_short1"] = data["Short_MA"].diff()
     # 长均线斜率
-    data["slope_long"] = np.gradient(data['Long_MA'])
+    data["slope_long1"] = data["Long_MA"].diff()
 
-    data["slope_short1"] = data["slope_short"].diff()
-    # 长均线斜率
-    data["slope_long1"] = data["slope_long"].diff()
-    # data['monitor'] =0
-    # daycounts = data.shape[0]  # 行数
-    # buy_status = 0  # 买入状态
-    # stock_sum = 1 # 初始入场股数，1股
-    # money = data.iloc[0,5] #初始资金,第一天收盘价格1股
-    # print("1 " +str(data.iloc[2,5]))
-    # print("2 " +str(data.iloc[2,7]))
-    # for i in range(0, daycounts):
-    #     if data.iloc[i , 11] == 1:
-    #         #money = stock_sum * data.iloc[i , 5]
-    #         if buy_status == 0:
-    #             stock_sum = money / data.iloc[i , 5]
-    #             buy_status = 1
-    #         money = stock_sum * data.iloc[i , 5]
-    #     if data.iloc[i, 12] == -1:
-    #         money = stock_sum * data.iloc[i, 5]
-    #         buy_status = 0
-    #     data.iloc[i, 13] = money
-    #     print("x："+ str(i))
+    daycounts = data.shape[0]  # 行数
+    buy_status = 0  # 买入状态
+    stock_sum = 1 # 初始入场股数，1股
+    money = data.iloc[0,5] #初始资金,第一天收盘价格1股
+    print("1 " +str(data.iloc[2,5]))
+    print("2 " +str(data.iloc[2,7]))
+    for i in range(0, daycounts):
+        # 如果未买入，并且金叉，且长线斜率大于等于0
+        if  data.iloc[i , 11] == 1 and data.iloc[i, 15] >= 0:
+            if buy_status == 0 :
+                stock_sum = money / data.iloc[i , 5]
+                buy_status = 1
+            money = stock_sum * data.iloc[i , 5]
+        #如果已买入，并且死叉，或者短线斜率小于0
+        if  buy_status == 1  and (data.iloc[i, 12] == -1 or data.iloc[i, 14] < 0) :
+            money = stock_sum * data.iloc[i, 5]
+            buy_status = 0
+        data.iloc[i, 13] = money
+        print("x："+ str(i))
     data.to_csv('000001_return.csv')
 
     return data

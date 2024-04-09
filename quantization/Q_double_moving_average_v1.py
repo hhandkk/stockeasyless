@@ -1,10 +1,6 @@
-from datetime import datetime
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os
-import platform
 
 # 定义双均线策略函数
 def dual_moving_average_strategy(data, short_window=5, long_window=22):
@@ -21,25 +17,23 @@ def dual_moving_average_strategy(data, short_window=5, long_window=22):
     # 计算持仓变化
     data['Position'] = data['Signal'].diff()
     #模拟1w元投资收益
-    data['monitor'] =0
+    data['monitor']= 0
+    money = 10000
     daycounts = data.shape[0]  # 行数
     buy_status = 0  # 买入状态
-    stock_sum = 1 # 初始入场股数，1股
-    money = data.iloc[0,5] #初始资金,第一天收盘价格1股
+    stock_sum =0 # 股数
     print("1 " +str(data.iloc[2,5]))
     print("2 " +str(data.iloc[2,7]))
-    for i in range(0, daycounts):
+    for i in range(0, daycounts - 1):
         if data.iloc[i , 11] == 1:
-            #money = stock_sum * data.iloc[i , 5]
             if buy_status == 0:
                 stock_sum = money / data.iloc[i , 5]
                 buy_status = 1
-            money = stock_sum * data.iloc[i , 5]
+            data.iloc[i , 13] = stock_sum * data.iloc[i , 5]
         if data.iloc[i, 12] == -1:
+            data.iloc[i, 13] = stock_sum * data.iloc[i, 5]
             money = stock_sum * data.iloc[i, 5]
             buy_status = 0
-        data.iloc[i, 13] = money
-        print("x："+ str(i))
     data.to_csv('000001_return.csv')
 
     return data
@@ -55,20 +49,16 @@ data.set_index('date', inplace=True)
 result = dual_moving_average_strategy(data)
 
 # 可视化结果
-plt.figure(figsize=(20, 10))   #画布的大小
-plt.plot(result['close'], label='Close Price', color='blue',linewidth= 0.5)
-plt.plot(result['Short_MA'], label='Short MA', color='orange',linewidth= 0.5)
-plt.plot(result['Long_MA'], label='Long MA', color='green',linewidth= 0.5)
-plt.plot(result['monitor'], label='monitor', color='red',linewidth= 0.8)
-# plt.plot(result.loc[result['Signal'] == 1].index,
-#           result['Short_MA'][result['Signal'] == 1],
-#           '^', markersize=10, color='g', lw=0, label='Buy Signal')
-# plt.plot(result.loc[result['Signal'] == -1].index,
-#           result['Short_MA'][result['Signal'] == -1],
-#           'v', markersize=10, color='r', lw=0, label='Sell Signal')
-plt.subplots_adjust(left=0.03, right=0.995, bottom=0.04, top=0.97)
-plt.xlim(datetime.strptime("2022-01-01", "%Y-%m-%d"),datetime.strptime("2022-2-28", "%Y-%m-%d"))
-plt.grid(True, axis='both', color='grey', linestyle='--', linewidth=0.5)
+plt.figure(figsize=(10, 5))
+plt.plot(result['close'], label='Close Price', color='blue')
+plt.plot(result['Short_MA'], label='Short MA', color='orange')
+plt.plot(result['Long_MA'], label='Long MA', color='green')
+plt.plot(result.loc[result['Signal'] == 1].index,
+         result['Short_MA'][result['Signal'] == 1],
+         '^', markersize=10, color='g', lw=0, label='Buy Signal')
+plt.plot(result.loc[result['Signal'] == -1].index,
+         result['Short_MA'][result['Signal'] == -1],
+         'v', markersize=10, color='r', lw=0, label='Sell Signal')
 plt.title('Dual Moving Average Strategy')
 plt.legend()
 plt.show()

@@ -20,7 +20,7 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 insert_sum = 0;
 for i in stock_list_all:
     #分类爬取,免得被封ip了   26-
-    if i[0] < "600000":
+    if i[0] < "600012":
         continue
     #拼接url
     url_comm = config.getConfig()["url"]["quote_txn_req_history_url"]

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import platform
 
-def dual_moving_average_strategy(data, short_window=2, long_window=10,hold_date = 5):
+def dual_moving_average_strategy(data, short_window=2, long_window=12,hold_date = 5):
     # 计算短期均线和长期均线
     data['OpenClose_MA'] = (data['open'] + data['close'])/2  #当天开盘和收盘平均价
     data['Short_MA'] = data['close'].rolling(window=short_window, min_periods=1).mean()

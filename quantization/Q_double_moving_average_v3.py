@@ -81,7 +81,7 @@ plt.plot(result['monitor'], label='monitor', color='red',linewidth= 0.8)
 #           result['Short_MA'][result['Signal'] == -1],
 #           'v', markersize=10, color='r', lw=0, label='Sell Signal')
 plt.subplots_adjust(left=0.03, right=0.995, bottom=0.04, top=0.97)
-plt.xlim(datetime.strptime("2018-01-01", "%Y-%m-%d"),datetime.strptime("2024-5-28", "%Y-%m-%d"))
+plt.xlim(datetime.strptime("2024-01-01", "%Y-%m-%d"),datetime.strptime("2024-04-12", "%Y-%m-%d"))
 plt.grid(True, axis='both', color='grey', linestyle='--', linewidth=0.5)
 plt.title('Dual Moving Average Strategy')
 plt.legend()

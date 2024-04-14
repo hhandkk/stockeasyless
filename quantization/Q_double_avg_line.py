@@ -31,7 +31,7 @@ data.set_index('Date', inplace=True)
 result = dual_moving_average_strategy(data)
 
 # 可视化结果
-plt.figure(figsize=(10, 5))
+
 plt.plot(result['Close'], label='Close Price', color='blue')
 plt.plot(result['Short_MA'], label='Short MA', color='orange')
 plt.plot(result['Long_MA'], label='Long MA', color='green')

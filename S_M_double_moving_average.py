@@ -31,7 +31,8 @@ output_data["weight"]=0
 #读取全部股票数据
 current_date = datetime.date.today().__str__()
 stock_list=utils.get_stock_list("2024-04-12")
-print("code:"+ str(stock_list[1][0]))
+
+j=0
 for i in stock_list:
     # 读取数据近6个月股票数据
     print("i:"+ str(i))
@@ -41,22 +42,24 @@ for i in stock_list:
     if data.shape[0] < 60:
         continue
     data = utils.double_moving_average_Slope(data)
+    data = data.sort_values("date",ascending=False,inplace=False)
     # 输出明细数据
-    print(i[0])
     data.to_csv(f"E:\python_data\py20240414\{i[0]}.csv")
+    if j > 0:
+        break
 
-    print("ok")
     # 监控策略：
     # m5 < m15
     # Slope_5_MA > Slope_15_MA
     # Slope_5_MA 、Slope_15_MA、Slope_60_MA > 0
     # 记录 Slope_5_MA - Slope_15_MA
-    if data['Slope_5_MA'].iloc[i] > 0 and data['Slope_15_MA'].iloc[i] > 0 and data['Slope_60_MA'].iloc[i] > 0:
-        if data['5_MA'].iloc[i] < data['15_MA'].iloc[i] and data['Slope_5_MA'].iloc[i] > data['Slope_15_MA'].iloc[i]:
-            output_data.loc[len(output_data)]=[data['code'].iloc[i],data['15_MA'].iloc[i] - data['5_MA'].iloc[i]]
-
+    if data['Slope_5_MA'].iloc[0] > 0 and data['Slope_15_MA'].iloc[0] > 0 and data['Slope_60_MA'].iloc[0] > 0:
+        if data['5_MA'].iloc[0] < data['15_MA'].iloc[0] and data['Slope_5_MA'].iloc[0] > data['Slope_15_MA'].iloc[0]:
+            output_data.loc[len(output_data)]=[i[0],data['15_MA'].iloc[0] - data['5_MA'].iloc[0]]
+            print(str(type(output_data['code'].iloc[0])))
+            j=j+1
 output_data['code'] = output_data['code'].astype(str)
-output_data.to_csv("double_moving_average_Slope.csv")
+output_data.to_csv("double_moving_average_Slope.csv",index=False)
 # print(data["date"].iloc[0])
 # data['date'] = pd.to_datetime(data['date'])
 # data['close']=pd.to_numeric(data['close'])

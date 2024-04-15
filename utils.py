@@ -460,4 +460,15 @@ def double_moving_average_Slope(data):
         data["Slope_60_MA"] = data["60_MA"].diff()
     except:
         print("double_moving_average_Slope exp!")
+        data['2_MA'] = 0
+        data['5_MA'] = 0
+        data['15_MA'] = 0
+        data['30_MA'] = 0
+        data['60_MA'] = 0
+        # 计算斜率
+        data["Slope_2_MA"] = 0
+        data["Slope_5_MA"] = 0
+        data["Slope_15_MA"] = 0
+        data["Slope_30_MA"] = 0
+        data["Slope_60_MA"] = 0
     return data

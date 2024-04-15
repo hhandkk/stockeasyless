@@ -37,6 +37,7 @@ def dual_moving_average_strategy(data, short_window=2, long_window=12,hold_date 
         # 如果未持股
         if buy_status == 0:
             # 判断金叉、长均线斜率大于0，买入
+            print("Intersection"+str(type(data["Intersection"])))
             if data["Intersection"].iloc[i] == 1 and data["Slope_long"].iloc[i] >= 0:
                 data["Buy_point"].iloc[i] = 1
                 #用Earnings记录金叉后N天最大股价

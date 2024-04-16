@@ -472,3 +472,24 @@ def double_moving_average_Slope(data):
         data["Slope_30_MA"] = 0
         data["Slope_60_MA"] = 0
     return data
+
+
+#--------------------------------------------------------------------------------------------------
+#批量提取当前股票明细
+def save_sig_stock_history_by_date(start_date,end_date,data):
+    # 6、清理该个股历史数据
+    f1_point = "日末"
+
+    delete_sql = "delete from quote_price_txn where f0 between %s and %s and f1 = %s"
+    mysql.delete_data(delete_sql, (start_date,end_date,f1_point))
+    print(str(start_date) +"到"+str(end_date)+"的数据全部删除成功。")
+    #股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    insert_sql = "insert quote_price_txn(f0,f17,f2,f15,f16,f5,f6,f7,f3,f4,f8,f12,f14) values (%s,%s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s,%s)"
+    mysql.insert_data_bath(insert_sql,data)
+    #print(val.__str__() + "入库成功。")
+    #输出入库情况
+    ##更新f0、f1,f200
+    update_sql = "update quote_price_txn set f1 = %s,f200 = %s where f0 between %s and %s and f1 is null"
+    val=(f1_point,datetime.datetime.now().__str__(),start_date,end_date)
+    mysql.insert_or_update_data(update_sql,val)
+    print(str(start_date) +"到"+str(end_date)+ "历史股票明细已经入库，共计" + str(len(data)) + "条数据。")

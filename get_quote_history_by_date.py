@@ -22,9 +22,9 @@ end_date= "2024-04-11"
 
 insert_sum = 0;
 result_matrix = []
-stock_list_all = [
-    ["000001", "平安银行"],
-    ["000002", "万 科A"]]
+# stock_list_all = [
+#     ["000001", "平安银行"],
+#     ["000002", "万 科A"]]
 for i in stock_list_all:
 
     if i[0].startswith('60'):
@@ -34,6 +34,7 @@ for i in stock_list_all:
     else:
         continue
     #拼接url
+
 
     url_stock = url_comm.replace("stockcode",i[0])
     #print(url_stock)
@@ -51,9 +52,9 @@ for i in stock_list_all:
         row.append(i[0])
         row.append(i[1])
     result_matrix.extend(result_matrix_tmp)
-
+    print(i[0]+i[1])
     insert_sum = insert_sum + 1
-print(str(result_matrix))
+# print(str(result_matrix))
 utils.save_sig_stock_history_by_date(start_date,end_date,result_matrix)
 #logger.info(start_date+"到"+ end_date+"入库完成。" )
 #logger.info("共计入库" + str(insert_sum) + "个股票历史数据")

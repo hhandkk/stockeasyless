@@ -434,7 +434,7 @@ def get_sig_stock_by_date_in_db (stock,start_date,end_date):
     select_parm = (stock,"日末", start_date,end_date)
     result_list = list(mysql.query_data(select_sql,select_parm))
     new_column_names =['date','code','open','high','low','close','volume','amount','turn','pctChg','peTTM']
-    print(result_list)
+    #print(result_list)
     df = pd.DataFrame(result_list)
     df.columns= new_column_names
     return df

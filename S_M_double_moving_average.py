@@ -30,8 +30,8 @@ output_data["weight"]=0
 
 #读取全部股票数据
 current_date = datetime.date.today().__str__()
-stock_list=utils.get_stock_list("2024-04-12")
-
+stock_list=utils.get_stock_list("2024-04-19")
+stock_list = [["603557","xx"]]
 j=0
 for i in stock_list:
     # 读取数据近6个月股票数据
@@ -53,7 +53,7 @@ for i in stock_list:
     if data['Slope_5_MA'].iloc[0] > 0 and data['Slope_15_MA'].iloc[0] > 0 and data['Slope_60_MA'].iloc[0] > 0:
         if data['5_MA'].iloc[0] > data['15_MA'].iloc[0] and data['Slope_5_MA'].iloc[0] > data['Slope_15_MA'].iloc[0]:
             output_data.loc[len(output_data)]=[i[0],(data['5_MA'].iloc[0] - data['15_MA'].iloc[0])/data['15_MA'].iloc[0]]
-            print(output_data['code'].iloc[0] + "入库")
+            print(i[0] + "入库")
             j=j+1
 output_data['code'] = output_data['code'].astype(str)
 output_data.to_csv("double_moving_average_Slope.csv",index=False)

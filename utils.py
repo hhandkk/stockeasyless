@@ -70,7 +70,7 @@ def jsonlist2matrix(data):
 def save_quote_txn_bath(data):
     # 6、清理当天的数据
     f1_point = "日中"
-    if datetime.datetime.now().hour > 15 or datetime.datetime.now().hour < 9 :
+    if datetime.datetime.now().hour > 14 or datetime.datetime.now().hour < 9 :
         f1_point = "日末"
     current_date = datetime.date.today().__str__()
     delete_sql = "delete from quote_price_txn where f0 = %s and f1= %s"

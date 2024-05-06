@@ -18,6 +18,20 @@ url:
   quote_easymoney_index:
     https://24.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240018788837573413764_1712208347167&pn=1&pz=50&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=|0|0|0|web&fid=&fs=b:MK0010&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152&_=1712208347320
 
+  #板块和概念：
+  #所属版块
+  quote_easymoney_industry:
+    https://datacenter.eastmoney.com/securities/api/data/get?type=RPT_F10_CORETHEME_BOARDTYPE&sty=SECUCODE%2CSECURITY_CODE%2CSECURITY_NAME_ABBR%2CBOARD_CODE%2CBOARD_NAME%2CIS_PRECISE%2CBOARD_RANK%2CBOARD_TYPE&filter=(SECUCODE%3D%22300407.SZ%22)&p=1&ps=&sr=1&st=BOARD_RANK&source=HSF10&client=PC&v=03525251440758925
+  #概念详情：
+  quote_easymoney_concept:
+    https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_F10_CORETHEME_BOARDTYPE&columns=SECUCODE%2CSECURITY_CODE%2CSECURITY_NAME_ABBR%2CNEW_BOARD_CODE%2CBOARD_NAME%2CSELECTED_BOARD_REASON%2CIS_PRECISE%2CBOARD_RANK%2CBOARD_YIELD%2CDERIVE_BOARD_CODE&quoteColumns=f3~05~NEW_BOARD_CODE~BOARD_YIELD&filter=(SECUCODE%3D%22300407.SZ%22)(IS_PRECISE%3D%221%22)&pageNumber=1&pageSize=&sortTypes=1&sortColumns=BOARD_RANK&source=HSF10&client=PC&v=049141438068208876
+  #题材详情
+  quote_easymoney_theme:
+    https://datacenter.eastmoney.com/securities/api/data/get?type=RPT_F10_CORETHEME_CONTENT&sty=SECUCODE%2CSECURITY_CODE%2CSECURITY_NAME_ABBR%2CKEYWORD%2CMAINPOINT%2CMAINPOINT_CONTENT%2CKEY_CLASSIF%2CKEY_CLASSIF_CODE%2CIS_POINT%2CIS_HISTORY&quoteColumns=&filter=(SECUCODE%3D%22300407.SZ%22)(KEY_CLASSIF_CODE%3C%3E%22001%22)&p=1&ps=&sr=1%2C1&st=KEY_CLASSIF_CODE%2CMAINPOINT&source=HSF10&client=PC&v=01718619355725599
+  #所属行业：
+  quote_easymoney_core_industry:
+    https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_F10_CORETHEME_CONTENT&columns=SECUCODE%2CSECURITY_CODE%2CSECURITY_NAME_ABBR%2CKEYWORD%2CKEY_CLASSIF%2CKEY_CLASSIF_CODE%2CIS_POINT%2CIS_HISTORY&quoteColumns=&filter=(SECUCODE%3D%22300407.SZ%22)(IS_POINT%3D%221%22)(IS_HISTORY%3D%220%22)&pageNumber=1&pageSize=&sortTypes=1%2C1&sortColumns=KEY_CLASSIF_CODE%2CMAINPOINT&source=HSF10&client=PC&v=010002304026721287
+
 parm:
   quote_txn_req_max: 6000
   history_date : "2024-03-26"

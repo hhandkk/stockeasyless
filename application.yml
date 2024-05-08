@@ -32,6 +32,11 @@ url:
   quote_easymoney_core_industry:
     https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_F10_CORETHEME_CONTENT&columns=SECUCODE%2CSECURITY_CODE%2CSECURITY_NAME_ABBR%2CKEYWORD%2CKEY_CLASSIF%2CKEY_CLASSIF_CODE%2CIS_POINT%2CIS_HISTORY&quoteColumns=&filter=(SECUCODE%3D%22300407.SZ%22)(IS_POINT%3D%221%22)(IS_HISTORY%3D%220%22)&pageNumber=1&pageSize=&sortTypes=1%2C1&sortColumns=KEY_CLASSIF_CODE%2CMAINPOINT&source=HSF10&client=PC&v=010002304026721287
 
+  ###指数数据区域：
+  #1 上证 000001
+  index_shanghai_exchange_time_sharing:
+    https://push2his.eastmoney.com/api/qt/stock/trends2/get?fields1=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13&fields2=f51,f52,f53,f54,f55,f56,f57,f58&ut=fa5fd1943c7b386f172d6893dbfba10b&iscr=0&ndays=1&secid=1.000001&cb=jQuery35105528496742689353_1715096473681&_=1715096473691
+
 parm:
   quote_txn_req_max: 6000
   history_date : "2024-03-26"

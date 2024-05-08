@@ -30,8 +30,8 @@ output_data["weight"]=0
 
 #读取全部股票数据
 current_date = datetime.date.today().__str__()
-stock_list=utils.get_stock_list("2024-04-19")
-stock_list = [["603557","xx"]]
+stock_list=utils.get_stock_list("2024-04-25")
+
 j=0
 for i in stock_list:
     # 读取数据近6个月股票数据

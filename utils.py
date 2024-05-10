@@ -493,3 +493,28 @@ def save_sig_stock_history_by_date(start_date,end_date,data):
     val=(f1_point,datetime.datetime.now().__str__(),start_date,end_date)
     mysql.insert_or_update_data(update_sql,val)
     print(str(start_date) +"到"+str(end_date)+ "历史股票明细已经入库，共计" + str(len(data)) + "条数据。")
+
+
+    #-----批量将大盘T日分析数据导入库
+def save_index_shanghai_exchange_time_sharing_bath(date,data):
+    num_rows = len(data)
+
+    # 获取列数，假设所有行都有相同的列数
+    num_columns = len(data[0])
+    for row in data:
+        print(row)
+    print("num_rows"+str(num_rows))
+    print("num_columns"+str(num_columns))
+    # 6、清理当天的数据
+    delete_sql = "delete from index_shanghai_exchange_time_sharing where date = %s"
+    mysql.delete_data(delete_sql, date)
+    print(date + " index_shanghai_exchange_time_sharing " + "数据删除成功。")
+    # 股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    insert_sql = "insert index_shanghai_exchange_time_sharing(date,time,open,close,high,low,turnover,volume,unknown) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    mysql.insert_data_bath(insert_sql, data)
+    # print(val.__str__() + "入库成功。")
+    # 输出入库情况
+    ##更新f0、f1,f200
+
+    print(date +  "大盘分时数据已经入库，共计" + str(len(data)) + "条数据。")
+

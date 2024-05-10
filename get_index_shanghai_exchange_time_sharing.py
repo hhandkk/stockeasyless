@@ -25,10 +25,11 @@ def get_index_shanghai_exchange_time_sharing_det():
     #result_value_matrix=utils.jsonlist2matrix(result_json['data']['trends'])
     prePrice = result_json['data']['prePrice']  # 昨天收盘价
     date = result_json['data']['trends'][0][:10]
+    data_matrix = [[date] + element.split(",")  for element in result_json['data']['trends']]
     print(result_json['data']['trends'])
     print(str(prePrice))
-    print(date)
-    #utils.save_quote_txn_bath(result_value_matrix)
-    data_list = np.insert(result_json['data']['trends'], 0, date, axis=1)
-    print(data_list)
-get_index_shanghai_exchange_time_sharing_det()
+    print("shuzu")
+    #np的一个坑！！，生产的二维数组是没有逗号分隔的！！！
+    #data_list = np.insert(data_matrix, 0, date, axis=1)
+    print(data_matrix)
+    utils.save_index_shanghai_exchange_time_sharing_bath(date,data_matrix)

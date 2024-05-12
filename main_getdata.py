@@ -22,3 +22,5 @@ get_10jqka_industry.get_10jqka_industry()
 
 #t日大盘分时数据
 get_index_shanghai_exchange_time_sharing_det()
+
+#t日

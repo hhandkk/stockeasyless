@@ -37,6 +37,15 @@ url:
   index_shanghai_exchange_time_sharing:
     https://push2his.eastmoney.com/api/qt/stock/trends2/get?fields1=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13&fields2=f51,f52,f53,f54,f55,f56,f57,f58&ut=fa5fd1943c7b386f172d6893dbfba10b&iscr=0&ndays=1&secid=1.000001&cb=jQuery35105528496742689353_1715096473681&_=1715096473691
 
+  #2 资金走向
+  index_money_flow_direction:
+    https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?cb=jQuery112308093756020195644_1715097385633&lmt=0&klt=101&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=1.000001&_=1715097385634
+
+
+  #3大单跟踪：该数据为html 其中page和ajax的为页码
+  large_order_record:
+    https://data.10jqka.com.cn/funds/ddzz/order/asc/page/1/ajax/1/free/1/
+
 parm:
   quote_txn_req_max: 6000
   history_date : "2024-03-26"

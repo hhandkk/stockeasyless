@@ -518,3 +518,45 @@ def save_index_shanghai_exchange_time_sharing_bath(date,data):
 
     print(date +  "大盘分时数据已经入库，共计" + str(len(data)) + "条数据。")
 
+
+
+ #-----批量将股票所属板块入库
+def save_stock_eastmoney_concept_bath(date,data):
+
+
+    # 股票代码,股票名称,最新价,涨跌幅,涨跌额,成交量（手）,成交额,振幅,换手率,市盈率,量比,最高,最低,今开,昨收,市净率等等
+    insert_sql = "insert stock_eastmoney_concept(DATE,SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,BOARD_CODE,BOARD_NAME,SELECTED_BOARD_REASON,IS_PRECISE,BOARD_RANK,BOARD_TYPE,DERIVE_BOARD_CODE) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s)"
+    mysql.insert_data_bath(insert_sql, data)
+    # print(val.__str__() + "入库成功。")
+    # 输出入库情况
+    ##更新f0、f1,f200
+
+    print(date +  "股票概念数据已经入库，共计" + str(len(data)) + "条数据。")
+
+def delete_stock_eastmoney_concept_bath(date):
+    # 6、清理当天的数据
+    delete_sql = "delete from stock_eastmoney_concept where date = %s"
+    mysql.delete_data(delete_sql, date)
+    print(date + " stock_eastmoney_concept " + "数据删除成功。")
+
+
+
+##所属行业
+def save_stock_eastmoney_industry_bath(date,data):
+
+    #
+    insert_sql = "insert stock_eastmoney_industry(date,secucode,security_code,security_name_abbr,board_code,board_name,is_precise,board_rank,board_type) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    mysql.insert_data_bath(insert_sql, data)
+    # print(val.__str__() + "入库成功。")
+    # 输出入库情况
+    ##更新f0、f1,f200
+
+    print(date +  "大盘分时数据已经入库，共计" + str(len(data)) + "条数据。")
+
+##删除当天行业数据
+def delete_stock_eastmoney_industry_bath(date):
+    # 清理当天的数据
+    delete_sql = "delete from stock_eastmoney_industry where date = %s"
+    mysql.delete_data(delete_sql, date)
+    #所属版块
+    print(date + " stock_eastmoney_industry " + " 所属版块数据删除成功。")

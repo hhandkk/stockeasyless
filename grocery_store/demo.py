@@ -6,7 +6,8 @@ import config
 import utils
 
 
-
+current_date = datetime.date.today().__str__()
+print(current_date)
 
 
 # 示例用法

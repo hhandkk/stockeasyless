@@ -3,9 +3,13 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/S_M_double_moving_average.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/S_M_double_moving_average.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/application.yml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/data_fetch/main_getdata.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/data_fetch/main_getdata.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo2.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/main_getdata.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo4.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/show_stock_K.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/utils_Q.py" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

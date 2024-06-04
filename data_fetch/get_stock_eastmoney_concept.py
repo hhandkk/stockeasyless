@@ -53,18 +53,24 @@ def get_stock_eastmoney_concept_by_code_2_matrix(date,code):
 def get_all_stock_eastmoney_concept():
     #1、取数,获取所有的股票，注意是交易日
     date = datetime.date.today().__str__()
-    date = '2024-05-10'   #test
+    date = '2024-05-31'   #test
+    #清理当天的数据
+    utils.delete_stock_eastmoney_concept_bath(date)
     # [code,name]
     stock_list_all = utils.get_stock_list(date)
     concept_all_data = []
     #2、获取所有股票的概念数据
+    record_num = 0;
     for i in stock_list_all:
         print(i[0])
         data_matrix = get_stock_eastmoney_concept_by_code_2_matrix(date,i[0])
         if not data_matrix:
             continue
-        #if i[0] > "000010":break
+        record_num = record_num + len(data_matrix)
         concept_all_data = concept_all_data + data_matrix
+        if len(concept_all_data) > 1000:
+            utils.save_stock_eastmoney_concept_bath(date, concept_all_data)
+            concept_all_data = []
     utils.save_stock_eastmoney_concept_bath(date,concept_all_data)
+    print("股票概念数据" + date + "共计入库" + record_num + "条！")
 
-get_all_stock_eastmoney_concept()
